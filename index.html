@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>For My Baby — 3 Months</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-scene" aria-hidden="true">
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+  <div class="bg-stars"></div>
+  <div id="floatingHearts" class="floating-hearts"></div>
+</div>
+
+<button id="btnSoundToggle" class="sound-toggle" aria-label="Toggle sound">
+  <svg class="icon-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M19 6a9 9 0 010 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  <svg class="icon-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+
+<main id="app">
+
+  <!-- ============ INTRO ============ -->
+  <section id="screen-intro" class="screen screen--active" data-screen="intro">
+    <div class="intro-card">
+      <div class="intro-heart">
+        <svg viewBox="0 0 24 24" class="heart-icon"><path d="M12 21s-7.5-4.7-10.3-9.2C-0.3 8.1 1.3 4 5.3 3.2c2.2-.4 4.3.6 5.7 2.5C12.4 3.7 14.5 2.7 16.7 3.2c4 .8 5.6 4.9 3.6 8.6C19.5 16.3 12 21 12 21z"/></svg>
+      </div>
+      <p class="intro-eyebrow">a little arcade, just for you</p>
+      <h1 class="intro-title" id="introLine1">Hey baby</h1>
+      <p class="intro-sub" id="introLine2">Your 3 month surprise is waiting...</p>
+      <p class="intro-ready" id="introLine3">Ready to play?</p>
+      <button id="btnStart" class="btn btn--primary btn--glow">
+        <span>START GAME</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ CLAW MACHINE ============ -->
+  <section id="screen-game" class="screen" data-screen="game">
+    <div class="machine-wrap">
+
+      <header class="game-header">
+        <div class="header-title">
+          <span class="header-title__main">Baby's Prize Machine</span>
+          <span class="header-title__sub">grab something sweet</span>
+        </div>
+        <div class="header-pills">
+          <div class="attempts-pill" id="attemptsDisplay">Attempts: <strong id="attemptsCount">0</strong></div>
+          <div class="attempts-pill progress-pill">Prizes: <strong id="progressCount">0 / 12</strong></div>
+        </div>
+      </header>
+      <div class="collection-tray" id="collectionTray" aria-label="Prize collection progress"></div>
+
+      <div class="cabinet" id="cabinet">
+        <div class="cabinet-lights" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="cabinet-glass">
+          <div class="cabinet-glow" aria-hidden="true"></div>
+
+          <div class="rail" id="rail">
+            <div class="rail-track"></div>
+          </div>
+
+          <div class="claw-rig" id="clawRig">
+            <div class="cable" id="cable"></div>
+            <div class="claw" id="claw">
+              <div class="claw-arm claw-arm--left"></div>
+              <div class="claw-arm claw-arm--right"></div>
+              <div class="claw-arm claw-arm--center"></div>
+              <div class="claw-hub"></div>
+            </div>
+          </div>
+
+          <div class="stage" id="stage">
+            <!-- capsules injected here -->
+          </div>
+
+          <div class="chute" id="chute">
+            <div class="chute-mouth"></div>
+            <span class="chute-label">PRIZE CHUTE</span>
+          </div>
+
+          <div class="glass-reflection" aria-hidden="true"></div>
+        </div>
+
+        <div class="cabinet-base">
+          <div class="marquee">
+            <span class="marquee-text">✦ SWEETHEART CLAW ✦</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+
+      <div class="controls">
+        <button class="ctrl-btn ctrl-btn--left" id="btnLeft" aria-label="Move claw left">
+          <svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" /></svg>
+        </button>
+        <button class="ctrl-btn ctrl-btn--drop" id="btnDrop" aria-label="Drop claw">
+          <span>DROP</span>
+        </button>
+        <button class="ctrl-btn ctrl-btn--right" id="btnRight" aria-label="Move claw right">
+          <svg viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" /></svg>
+        </button>
+      </div>
+
+      <p class="hint">Arrow keys or buttons to move · Space or DROP to grab</p>
+    </div>
+  </section>
+
+  <!-- ============ NORMAL PRIZE MODAL ============ -->
+  <div id="prizeModal" class="modal-overlay">
+    <div class="prize-card">
+      <div class="prize-card__shine" aria-hidden="true"></div>
+      <div class="prize-card__image-wrap">
+        <img id="prizeImage" class="prize-card__image" alt="">
+      </div>
+      <p class="prize-card__rarity" id="prizeRarity">common</p>
+      <h2 class="prize-card__name" id="prizeName">Prize Name</h2>
+      <p class="prize-card__message" id="prizeMessage">Message goes here.</p>
+      <button id="btnPrizeContinue" class="btn btn--primary">CONTINUE</button>
+    </div>
+  </div>
+
+  <!-- ============ FINAL SEQUENCE ============ -->
+  <section id="screen-final" class="screen" data-screen="final">
+    <div class="final-particles" id="finalParticles" aria-hidden="true"></div>
+    <div class="final-content">
+      <div class="final-line" id="finalLine1">YOU GOT THE SPECIAL PRIZE</div>
+      <div class="final-line final-line--big" id="finalLine2">3 MONTHS</div>
+      <div class="final-line final-line--date" id="finalLine3">June 12 → September 12</div>
+      <button id="btnOpenLetter" class="btn btn--gold">OPEN MY LETTER</button>
+    </div>
+  </section>
+
+  <!-- ============ LETTER ============ -->
+  <section id="screen-letter" class="screen" data-screen="letter">
+    <div class="letter-wrap">
+      <div class="letter-paper" id="letterPaper">
+        <p class="letter-heart">♥</p>
+        <div class="letter-text" id="letterText"></div>
+        <button id="btnLetterContinue" class="btn btn--primary letter-continue">CONTINUE</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TIMELINE ============ -->
+  <section id="screen-timeline" class="screen" data-screen="timeline">
+    <div class="timeline-wrap">
+      <h2 class="timeline-title">OUR LITTLE STORY</h2>
+      <p class="timeline-sub">Look how far we've come.</p>
+
+      <div class="timeline" id="timeline"></div>
+
+      <div class="ending">
+        <p class="ending-line">And this isn't the last one.</p>
+        <p class="ending-line ending-line--italic">To be continued...</p>
+        <button id="btnPlayAgainFinal" class="btn btn--primary">PLAY AGAIN</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
